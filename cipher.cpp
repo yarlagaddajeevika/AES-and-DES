@@ -2,6 +2,7 @@
 #include "CipherInterface.h"
 #include "DES.h"
 #include "AES.h"
+#include<iostream>
 
 using namespace std;
 
@@ -38,7 +39,7 @@ int main(int argc, char** argv)
 	cipher->setKey((unsigned char*)"0123456789abcdef");
 	
 	/* Perform encryption */
-	//string cipherText = cipher->encrypt("hello world");
+	// string cipherText = cipher->encrypt("hello world");
 	
 	/* Perform decryption */
 	//cipher->decrypt(cipherText);	

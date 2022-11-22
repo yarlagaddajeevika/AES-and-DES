@@ -1,4 +1,8 @@
 #include "DES.h"
+#include <iostream>
+
+#define ENC 1
+#define DEC 0
 
 /**
  * Sets the key to use
@@ -72,19 +76,33 @@ unsigned char* DES::encrypt(const unsigned char* plaintext)
         DES_LONG block[2];
         // 2. Use ctol() to convert the first 4 chars into long; store the
         // result in block[0]
-		block[0] = ctol(plaintext);
-		std::cout << block[0];
+        unsigned char* new_plainText;
+        new_plainText = (unsigned char*) plaintext;
+        block[0] = ctol(new_plainText);
+        std::cout << block[0];
         // 3. Use ctol() to convert the second 4 chars into long; store the
         // result in block[1]
+        block[1] = ctol(new_plainText+4);
         // 4. Perform des_encrypt1 in order to encrypt the block using this->key
         // (see sample codes for details)
+        DES_encrypt1(block, &this->key, ENC);
         // 5. Convert the first ciphertext long to 4 characters using ltoc()
+        unsigned char cipherText[9];
+        memset(cipherText, 0, 9);
+        ltoc(block[0], cipherText);
         // 6. Convert the second ciphertext long to 4 characters using ltoc()
+        ltoc(block[1], cipherText + 4);
         // 7. Save the results in the dynamically allocated char array
         //  (e.g. unsigned char* bytes = new unsigned char[8]).
+        unsigned char* bytes = new unsigned char[8];
+        //??store ciphertext in bytes?
+        for (int n=0; n<8; n++)
+        {
+          bytes[n]=cipherText[n];
+        }
         // 8. Return the pointer to the dynamically allocated array.
 
-        return NULL;
+        return bytes;
 }
 
 /**
@@ -97,7 +115,24 @@ unsigned char* DES::decrypt(const unsigned char* ciphertext)
 	//LOGIC:
 	// Same logic as encrypt(), except in step 4. decrypt instead of encrypting
 	//
-	return NULL;
+  DES_LONG block[2];
+        // 2. Use ctol() to convert the first 4 chars into long; store the
+        // result in block[0]
+        unsigned char* new_cipherText;
+        new_cipherText = (unsigned char*) ciphertext;
+        block[0] = ctol(new_cipherText);
+        std::cout << block[0];
+        block[1] = ctol(new_cipherText+4);
+        DES_encrypt1(block, &this->key, DEC);
+        unsigned char decryptedText[9];
+        ltoc(block[0], decryptedText);
+        ltoc(block[1], decryptedText + 4);
+        unsigned char* bytes = new unsigned char[8];
+        for (int n=0; n<8; n++)
+        {
+          bytes[n]=decryptedText[n];
+        }
+	      return bytes;
 }
 
 /**
