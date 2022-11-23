@@ -115,7 +115,7 @@ unsigned char* DES::decrypt(const unsigned char* ciphertext)
 	//LOGIC:
 	// Same logic as encrypt(), except in step 4. decrypt instead of encrypting
 	//
-  DES_LONG block[2];
+        DES_LONG block[2];
         // 2. Use ctol() to convert the first 4 chars into long; store the
         // result in block[0]
         unsigned char* new_cipherText;
