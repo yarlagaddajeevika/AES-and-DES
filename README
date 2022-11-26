@@ -1,4 +1,4 @@
-To compile, simply, type ''make'' at the terminal (without the quotes).
+To compile, simply, type ''make all'' at the terminal (without the quotes).
 
 – Names and email addresses of all partners.
 
@@ -12,7 +12,10 @@ Email: bettermoore2495@csu.fullerton.edu
 C++
 
 – How to execute your program.
+./cipher <CIPHER NAME> <KEY> <ENC/DEC> <INPUT FILE> <OUTPUT FILE>
 
+Sample:
+./cipher DES "0123456789abcdef" ENC in.txt out.txt
 
 – Whether you implemented the extra credit.
 No
