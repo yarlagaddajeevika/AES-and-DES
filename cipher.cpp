@@ -21,14 +21,6 @@ int main(int argc, char** argv)
 	
 	/* Create an instance of the DES cipher */	
 	CipherInterface* cipher = NULL; 
-		
-	/* Error checks */
-	if(!cipher)
-	{
-		fprintf(stderr, "ERROR [%s %s %d]: could not allocate memory\n",	
-		__FILE__, __FUNCTION__, __LINE__);
-		exit(-1);
-	}
 	
 	/* Set the encryption key
 	 * A valid key comprises 16 hexidecimal
@@ -44,11 +36,21 @@ int main(int argc, char** argv)
       cipher = new DES();
 
       cipher->setKey((unsigned char*)"0123456789abcdef");
+      std::cout << typeof(argv[3]);
+      if(argv[3]=="ENC"){
+        cipher->encrypt((unsigned char*)"HI");
+      }
     }else{
       cipher = new AES();
-      
+      cipher->setKey((unsigned char*)"0123456789abcdef");
     }
-	
+	/* Error checks */
+	if(!cipher)
+	{
+		fprintf(stderr, "ERROR [%s %s %d]: could not allocate memory\n",	
+		__FILE__, __FUNCTION__, __LINE__);
+		exit(-1);
+	}
 	/* Perform encryption */
 	// string cipherText = cipher->encrypt("hello world");
 	
