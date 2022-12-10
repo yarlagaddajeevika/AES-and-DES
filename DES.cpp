@@ -79,7 +79,7 @@ unsigned char* DES::encrypt(const unsigned char* plaintext)
         unsigned char* new_plainText;
         new_plainText = (unsigned char*) plaintext;
         block[0] = ctol(new_plainText);
-        std::cout << block[0];
+        //std::cout << block[0];
         // 3. Use ctol() to convert the second 4 chars into long; store the
         // result in block[1]
         block[1] = ctol(new_plainText+4);
@@ -98,6 +98,7 @@ unsigned char* DES::encrypt(const unsigned char* plaintext)
         //??store ciphertext in bytes?
         for (int n=0; n<8; n++)
         {
+          std::cout << cipherText[n];
           bytes[n]=cipherText[n];
         }
         // 8. Return the pointer to the dynamically allocated array.
