@@ -98,11 +98,13 @@ unsigned char* DES::encrypt(const unsigned char* plaintext)
         //??store ciphertext in bytes?
         for (int n=0; n<8; n++)
         {
-          std::cout << cipherText[n];
-          bytes[n]=cipherText[n];
+        //   std::cout << cipherText[n] << endl;
+          bytes[n]+=cipherText[n];
+		//   cout << bytes[n] << endl;
         }
         // 8. Return the pointer to the dynamically allocated array.
-
+		// bytes;
+		cout << bytes;
         return bytes;
 }
 
@@ -131,6 +133,7 @@ unsigned char* DES::decrypt(const unsigned char* ciphertext)
         unsigned char* bytes = new unsigned char[8];
         for (int n=0; n<8; n++)
         {
+			std::cout << decryptedText[n] << endl;
           bytes[n]=decryptedText[n];
         }
 	      return bytes;
