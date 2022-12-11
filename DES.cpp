@@ -110,28 +110,23 @@ unsigned char* DES::encrypt(const unsigned char* plaintext)
  */
 unsigned char* DES::decrypt(const unsigned char* ciphertext)
 {
-	//LOGIC:
-	// Same logic as encrypt(), except in step 4. decrypt instead of encrypting
-	//
-        DES_LONG block[3];
-        // 2. Use ctol() to convert the first 4 chars into long; store the
-        // result in block[0]
+
+        DES_LONG block[2];
+        
         unsigned char* new_cipherText;
         new_cipherText = (unsigned char*) ciphertext;
         block[0] = ctol(new_cipherText);
-        // std::cout << block[0];
         block[1] = ctol(new_cipherText+4);
-		block[2] = ctol(new_cipherText+8);
+		
         DES_encrypt1(block, &this->key, DEC);
+
         unsigned char decryptedText[13];
-		// memset(decryptedText, 0, 9);
         ltoc(block[0], decryptedText);
         ltoc(block[1], decryptedText + 4);
-		ltoc(block[2],decryptedText+8);
+		
         unsigned char* bytes = new unsigned char[12];
         for (int n=0; n<12; n++)
         {
-			// std::cout << decryptedText[n] << endl;
           bytes[n]+=decryptedText[n];
         }
 	    return bytes;
