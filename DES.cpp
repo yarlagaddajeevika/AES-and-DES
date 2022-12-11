@@ -79,7 +79,6 @@ unsigned char* DES::encrypt(const unsigned char* plaintext)
         unsigned char* new_plainText;
         new_plainText = (unsigned char*) plaintext;
         block[0] = ctol(new_plainText);
-        //std::cout << block[0];
         // 3. Use ctol() to convert the second 4 chars into long; store the
         // result in block[1]
         block[1] = ctol(new_plainText+4);
@@ -95,16 +94,12 @@ unsigned char* DES::encrypt(const unsigned char* plaintext)
         // 7. Save the results in the dynamically allocated char array
         //  (e.g. unsigned char* bytes = new unsigned char[8]).
         unsigned char* bytes = new unsigned char[8];
-        //??store ciphertext in bytes?
         for (int n=0; n<8; n++)
         {
-        //   std::cout << cipherText[n] << endl;
           bytes[n]+=cipherText[n];
-		//   cout << bytes[n] << endl;
         }
         // 8. Return the pointer to the dynamically allocated array.
 		// bytes;
-		cout << bytes;
         return bytes;
 }
 
@@ -118,25 +113,28 @@ unsigned char* DES::decrypt(const unsigned char* ciphertext)
 	//LOGIC:
 	// Same logic as encrypt(), except in step 4. decrypt instead of encrypting
 	//
-        DES_LONG block[2];
+        DES_LONG block[3];
         // 2. Use ctol() to convert the first 4 chars into long; store the
         // result in block[0]
         unsigned char* new_cipherText;
         new_cipherText = (unsigned char*) ciphertext;
         block[0] = ctol(new_cipherText);
-        std::cout << block[0];
+        // std::cout << block[0];
         block[1] = ctol(new_cipherText+4);
+		block[2] = ctol(new_cipherText+8);
         DES_encrypt1(block, &this->key, DEC);
-        unsigned char decryptedText[9];
+        unsigned char decryptedText[13];
+		// memset(decryptedText, 0, 9);
         ltoc(block[0], decryptedText);
         ltoc(block[1], decryptedText + 4);
-        unsigned char* bytes = new unsigned char[8];
-        for (int n=0; n<8; n++)
+		ltoc(block[2],decryptedText+8);
+        unsigned char* bytes = new unsigned char[12];
+        for (int n=0; n<12; n++)
         {
-			std::cout << decryptedText[n] << endl;
-          bytes[n]=decryptedText[n];
+			// std::cout << decryptedText[n] << endl;
+          bytes[n]+=decryptedText[n];
         }
-	      return bytes;
+	    return bytes;
 }
 
 /**
